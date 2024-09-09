@@ -7,10 +7,18 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"path/filepath"
 )
 
 func main() {
-	jsonFile, err := os.Open("data.json")
+	cwd, err := os.Getwd()
+	if err != nil {
+		log.Fatalf("Failed to get current working directory: %v", err)
+	}
+
+	jsonFilePath := filepath.Join(cwd, "data.json")
+
+	jsonFile, err := os.Open(jsonFilePath)
 	if err != nil {
 		log.Fatalf("Failed to open JSON file: %v", err)
 	}
